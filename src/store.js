@@ -10,12 +10,14 @@ export default new Vuex.Store({
     hello: 'world',
     movies: [],
     genres: [],
-    selectedGenre: null
+    selectedGenre: null,
+    pages: 1,
+    currentPage: 1
   },
   actions: {
-    fetchMovies (context) {
+    fetchMovies (context, page = 1) {
       MovieService.getMovies({
-        page: 1,
+        page,
         genre: context.state.selectedGenre
       }).then(response => {
         context.commit('setMovies', response.data)
@@ -30,11 +32,16 @@ export default new Vuex.Store({
     fetchByGenre (context, genre) {
       context.commit('setSelectedGenre', genre)
       context.dispatch('fetchMovies')
+    },
+    fetchPage (context, page) {
+      context.dispatch('fetchMovies', page)
     }
   },
   mutations: {
     setMovies (state, moviesData) {
       state.movies = moviesData.results
+      state.pages = moviesData.total_pages
+      state.currentPage = moviesData.page
     },
     setGenres (state, genresData) {
       state.genres = genresData.genres
