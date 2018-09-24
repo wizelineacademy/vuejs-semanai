@@ -1,8 +1,8 @@
 import axios from 'axios'
 import moment from 'moment'
 
-const url = process.env.MOVIES_URL
-const key = process.env.API_KEY
+const url = process.env.VUE_APP_MOVIES_URL
+const key = process.env.VUE_APP_API_KEY
 
 export default {
   getMovies (queryObj) {

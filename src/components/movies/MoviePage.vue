@@ -3,7 +3,6 @@
 
     <div class="container">
       <h1>My movies backlog</h1>
-      <h2>Hello {{ message }}</h2>
     </div>
 
     <movie-nav/>
@@ -14,8 +13,11 @@
 
       <div class="row movie-container">
 
-        <div class="col-xs-12 col-sm-6 col-lg-3">
-          <movie-card :id="1"/>
+        <div
+          v-for="(movie, index) in movies"
+          :key="index"
+          class="col-xs-12 col-sm-6 col-lg-3">
+          <movie-card v-bind="movie"/>
         </div>
 
       </div>
@@ -40,9 +42,12 @@ export default {
     MovieFilter
   },
   computed: {
-    message () {
-      return this.$store.state.hello
+    movies () {
+      return this.$store.getters.movieCards
     }
+  },
+  mounted () {
+    this.$store.dispatch('fetchMovies')
   }
 }
 </script>
