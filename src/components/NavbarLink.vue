@@ -1,9 +1,14 @@
 <template>
-  <li :class="{'nav-item': true, 'active': false}">
-    <a class="nav-link" :href="to">
-      {{label}}
+  <router-link
+    tag="li"
+    :to="to"
+    active-class="active"
+    class="nav-item"
+    exact>
+    <a class="nav-link" href="#">
+      {{ label }}
     </a>
-  </li>
+  </router-link>
 </template>
 
 <script>
