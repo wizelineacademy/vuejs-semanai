@@ -3,6 +3,12 @@ import Vuex from 'vuex'
 
 import MovieService from './services/MovieService'
 
+// Plugins
+import createPersistedState from 'vuex-persistedstate'
+const vuexPersist = createPersistedState({
+  key: 'movies-semanai'
+})
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -94,5 +100,8 @@ export default new Vuex.Store({
       if (!state.savedMovies) return []
       return state.savedMovies.map(movie => movie.id)
     }
-  }
+  },
+  plugins: [
+    vuexPersist
+  ]
 })
