@@ -5,7 +5,7 @@
       :src="workingImage">
 
     <img v-if="saved"
-      class="movie-card-saved-icon" src="/static/star.png">
+      class="movie-card-saved-icon" src="../../assets/star.png">
 
     <div class="movie-card-body">
       <div class="text-container">
@@ -74,8 +74,7 @@ export default {
       return this.image
     },
     saved () {
-      // TODO check if movie is saved
-      return false
+      return this.$store.getters.savedMoviesIds.indexOf(this.id) > -1
     },
     movieObject () {
       // We don't save vote_average because it may change
@@ -90,10 +89,10 @@ export default {
 
   methods: {
     saveMovie () {
-      // TODO add movie to saved
+      this.$store.commit('saveMovie', this.movieObject)
     },
     removeSavedMovie (movieObject) {
-      // TODO remove saved movie
+      this.$store.commit('removeSavedMovie', this.movieObject)
     }
   }
 }

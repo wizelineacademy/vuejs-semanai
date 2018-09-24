@@ -9,7 +9,8 @@
 
     <div class="container">
 
-      <movie-filter/>
+      <movie-filter
+        v-if="isDiscover"/>
 
       <div
         :class="movieContainerClasses"
@@ -24,7 +25,8 @@
 
       </div>
 
-      <pagination />
+      <pagination
+        v-if="isDiscover"/>
 
     </div>
   </div>
@@ -54,6 +56,9 @@ export default {
       return {
         'loading': this.isLoading
       }
+    },
+    isDiscover () {
+      return this.$store.state.currentSection === 'discover'
     }
   },
   mounted () {

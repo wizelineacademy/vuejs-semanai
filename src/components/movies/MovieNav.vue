@@ -18,15 +18,14 @@
 
 <script>
 export default {
-  data () {
-    return {
-      section: 'discover'
-    }
-  },
-
   methods: {
     clicked (section) {
-      // TODO change section
+      this.$store.commit('setSection', section)
+    }
+  },
+  computed: {
+    section () {
+      return this.$store.state.currentSection
     }
   }
 }
