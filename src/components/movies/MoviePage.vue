@@ -11,7 +11,9 @@
 
       <movie-filter/>
 
-      <div class="row movie-container">
+      <div
+        :class="movieContainerClasses"
+        class="row movie-container">
 
         <div
           v-for="(movie, index) in movies"
@@ -44,6 +46,14 @@ export default {
   computed: {
     movies () {
       return this.$store.getters.movieCards
+    },
+    isLoading () {
+      return this.$store.state.loading
+    },
+    movieContainerClasses () {
+      return {
+        'loading': this.isLoading
+      }
     }
   },
   mounted () {

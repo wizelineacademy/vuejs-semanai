@@ -12,16 +12,20 @@ export default new Vuex.Store({
     genres: [],
     selectedGenre: null,
     pages: 1,
-    currentPage: 1
+    currentPage: 1,
+    loading: false
   },
   actions: {
     fetchMovies (context, page = 1) {
+      context.commit('setLoading', true)
       MovieService.getMovies({
         page,
         genre: context.state.selectedGenre
-      }).then(response => {
+      })
+      .then(response => {
         context.commit('setMovies', response.data)
       })
+      .finally(() => context.commit('setLoading', false))
     },
     fetchGenres (context) {
       MovieService.getGenres()
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     setSelectedGenre (state, genre) {
       state.selectedGenre = genre
+    },
+    setLoading (state, isLoading) {
+      state.loading = isLoading
     }
   },
   getters: {
